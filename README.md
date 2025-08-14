@@ -1,6 +1,6 @@
-# Forensic Workstation Setup (Windows)
+# Ansible Role For Forensic Workstation Setup (Windows)
 
-A role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView.
+An Ansible role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView.
 
 ## Requirements
 
