@@ -1,0 +1,6 @@
+---
+# handlers file for forensic_workstation_setup_windows
+- name: Delete FTK installer
+  ansible.windows.win_file:
+    path: "C:\\Temp\\FTK_Imager.exe"
+    state: absent

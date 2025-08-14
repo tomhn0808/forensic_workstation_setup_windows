@@ -1,0 +1,12 @@
+---
+- name: Install Wireshark
+  chocolatey.chocolatey.win_chocolatey:
+    name: wireshark
+    state: present
+  tags: install-wireshark
+
+- name: Add Shortcut for wireshark for all users
+  community.windows.win_shortcut:
+    src: "C:\\Program Files\\Wireshark\\Wireshark.exe"
+    dest: "{{ tools_desktop_folder }}\\WireShark.lnk"
+  tags: install-wireshark

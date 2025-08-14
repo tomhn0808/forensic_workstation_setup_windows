@@ -1,0 +1,10 @@
+- name: Install utilities
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - 7zip
+    - notepadplusplus
+    - libreoffice-fresh
+    - mobaxterm
+  tags: install-utilities

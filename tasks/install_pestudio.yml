@@ -1,0 +1,27 @@
+- name: Download PeStudio
+  ansible.windows.win_get_url:
+    url: "https://www.winitor.com/tools/pestudio/current/pestudio.zip"
+    dest: "C:\\Temp\\pestudio.zip"
+    validate_certs: true
+  tags: install-pestudio
+
+- name: Extract PeStudio
+  community.windows.win_unzip:
+    src: "C:\\Temp\\pestudio.zip"
+    dest: "C:\\Program Files\\PeStudio"
+    delete_archive: true
+  tags: install-pestudio
+
+- name: Add PeStudio to PATH (machine-wide)
+  ansible.windows.win_path:
+    elements:
+      - "C:\\Program Files\\PeStudio\\pestudio"
+    scope: machine
+    state: present
+  tags: install-pestudio
+
+- name: Create PeStudio shortcut for all users
+  community.windows.win_shortcut:
+    src: "C:\\Program Files\\PeStudio\\pestudio\\pestudio.exe"
+    dest: "{{ tools_desktop_folder }}\\PeStudio.lnk"
+  tags: install-pestudio

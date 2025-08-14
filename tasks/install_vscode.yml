@@ -1,0 +1,14 @@
+- name: Install VSCode (latest)
+  chocolatey.chocolatey.win_chocolatey:
+    name: VSCode
+    version: "{{ install_vscode_version }}"
+    state: present
+  tags: install-vscode
+
+- name: Install vscode extension (Ansible, Python, PowerShell, Copilot )
+  ansible.windows.win_command:
+    code.cmd --install-extension {{ item }}
+  args:
+    chdir: 'C:\Program Files\Microsoft VS Code\bin'
+  loop: "{{ vscode_extensions }}"
+  tags: install-vscode

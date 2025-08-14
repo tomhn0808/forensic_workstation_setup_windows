@@ -1,0 +1,32 @@
+---
+- name: Install Autopsy (latest)
+  chocolatey.chocolatey.win_chocolatey:
+    name: autopsy
+    version: "{{ install_autopsy_version }}"
+    state: present
+  tags: install-autopsy
+
+- name: Delete any Autopsy shortcut on the Desktop
+  ansible.windows.win_shell: |
+    Remove-Item "C:\Users\Public\Desktop\Autopsy*.lnk" -ErrorAction SilentlyContinue
+  tags: install-autopsy
+
+- name: Find Autopsy installation folder
+  ansible.windows.win_find:
+    paths: "C:\\Program Files"
+    patterns: "Autopsy*"
+    file_type: directory
+  register: autopsy_folders
+  tags: install-autopsy
+
+- name: Set Autopsy folder path
+  ansible.builtin.set_fact:
+    autopsy_path: "{{ autopsy_folders.files[0].path }}"
+  tags: install-autopsy
+
+- name: Add Shortcut for Autopsy for all users
+  community.windows.win_shortcut:
+    src: "{{ autopsy_path }}\\bin\\autopsy64.exe"
+    dest: "{{ tools_desktop_folder }}\\Autopsy.lnk"
+    icon: "{{ autopsy_path }}\\icon.ico"
+  tags: install-autopsy

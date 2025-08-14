@@ -1,0 +1,38 @@
+- name: Download FTK Imager installer
+  ansible.windows.win_get_url:
+    url: "https://accessdata-ftk-imager.software.informer.com/download/?ca1c4cf-3.2"
+    dest: "C:\\Temp\\FTK_Imager.exe"
+    validate_certs: false
+  tags: install-ftk
+
+- name: Install FTK Imager
+  ansible.windows.win_package:
+    path: "C:\\Temp\\FTK_Imager.exe"
+    arguments: "/S"  # Silent install
+    state: present
+  tags: install-ftk
+  notify: Delete FTK installer
+
+- name: Delete any FTK shortcut on the Desktop
+  ansible.windows.win_shell: |
+    Remove-Item "C:\Users\Public\Desktop\*FTK Imager*.lnk" -ErrorAction SilentlyContinue
+  tags: install-ftk
+
+- name: Find FTK installation folder
+  ansible.windows.win_find:
+    paths: "C:\\Program Files (x86)\\AccessData"
+    patterns: "*FTK Imager*"
+    file_type: directory
+  register: ftk_folders
+  tags: install-ftk
+
+- name: Set FTK folder path
+  ansible.builtin.set_fact:
+    ftk_path: "{{ ftk_folders.files[0].path }}"
+  tags: install-ftk
+
+- name: Add Shortcut for FTK for all users
+  community.windows.win_shortcut:
+    src: "{{ ftk_path }}\\FTK Imager.exe"
+    dest: "{{ tools_desktop_folder }}\\FTK Imager.lnk"
+  tags: install-ftk

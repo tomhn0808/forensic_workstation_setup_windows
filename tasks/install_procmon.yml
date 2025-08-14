@@ -1,0 +1,11 @@
+- name: Install Procmon
+  chocolatey.chocolatey.win_chocolatey:
+    name: procmon
+    state: present
+  tags: install-procmon
+
+- name: Create PeStudio shortcut for all users
+  community.windows.win_shortcut:
+    src: "C:\\ProgramData\\chocolatey\\bin\\Procmon.exe"
+    dest: "{{ tools_desktop_folder }}\\Procmon.lnk"
+  tags: install-procmon

@@ -1,0 +1,34 @@
+---
+- name: Ensure Chocolatey is installed
+  chocolatey.chocolatey.win_chocolatey:
+    name: chocolatey
+    state: present
+
+- name: Create folder for Forensic tools
+  ansible.windows.win_file:
+    path: "{{ tools_desktop_folder }}"
+    state: directory
+
+- name: Ensure Temp folder exists for installer
+  ansible.windows.win_file:
+    path: "C:\\Temp"
+    state: directory
+
+- name: Installation of Autopsy
+  ansible.builtin.import_tasks: install_autopsy.yml
+- name: Installation of Wireshark
+  ansible.builtin.import_tasks: install_wireshark.yml
+- name: Installation of VsCode
+  ansible.builtin.import_tasks: install_vscode.yml
+- name: Installation of FTK Imager
+  ansible.builtin.import_tasks: install_ftk.yml
+- name: Installation of utilities (7z + notepad++, Libre Office, MobaXTerm)
+  ansible.builtin.import_tasks: install_utilities.yml
+- name: Installation of Volatility 3
+  ansible.builtin.import_tasks: install_volatility.yml
+- name: Installation of Procmon
+  ansible.builtin.import_tasks: install_procmon.yml
+- name: Installation of PeStudio
+  ansible.builtin.import_tasks: install_pestudio.yml
+- name: Installation of BrowserHistoryView
+  ansible.builtin.import_tasks: install_browserhistoryview.yml

@@ -1,0 +1,17 @@
+---
+# defaults file for forensic_workstation_setup_windows
+# Folder where all forensic tool shortcuts will be created
+tools_desktop_folder: "C:\\Users\\Public\\Desktop\\Forensic Tools"
+
+# Version of Autopsy to install
+install_autopsy_version: "4.22.1"
+
+# Version of Visual Studio Code to install
+install_vscode_version: "1.103.0"
+
+# VSCode extensions to install
+vscode_extensions:
+  - redhat.ansible
+  - ms-python.python
+  - ms-vscode.powershell
+  - github.copilot

@@ -1,0 +1,11 @@
+- name: Install Volatility3
+  chocolatey.chocolatey.win_chocolatey:
+    name: volatility3
+    state: present
+  tags: install-volatility
+
+- name: Add Shortcut for Volatility 3 for all users (just a link to cmd)
+  community.windows.win_shortcut:
+    src: "C:\\Program Files\\PowerShell\\*\\pwsh.exe"
+    dest: "{{ tools_desktop_folder }}\\Volatility3.lnk"
+  tags: install-volatility

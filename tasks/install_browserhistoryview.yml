@@ -1,0 +1,27 @@
+- name: Download BrowserHistoryView
+  ansible.windows.win_get_url:
+    url: "https://www.nirsoft.net/utils/browsinghistoryview.zip"
+    dest: "C:\\Temp\\BrowserHistoryView.zip"
+    validate_certs: true
+  tags: install-browserhistoryview
+
+- name: Extract BrowserHistoryView
+  community.windows.win_unzip:
+    src: "C:\\Temp\\BrowserHistoryView.zip"
+    dest: "C:\\Program Files\\BrowserHistoryView"
+    delete_archive: true
+  tags: install-browserhistoryview
+
+- name: Add BrowserHistoryView to PATH (for the machine)
+  ansible.windows.win_path:
+    elements:
+      - "C:\\Program Files\\BrowserHistoryView"
+    scope: machine
+    state: present
+  tags: install-browserhistoryview
+
+- name: Create BrowserHistoryView shortcut for all users
+  community.windows.win_shortcut:
+    src: "C:\\Program Files\\BrowserHistoryView\\BrowsingHistoryView.exe"
+    dest: "{{ tools_desktop_folder }}\\BrowsingHistoryView.lnk"
+  tags: install-browserhistoryview
