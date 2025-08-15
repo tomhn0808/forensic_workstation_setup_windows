@@ -1,6 +1,6 @@
 # Ansible Role For Forensic Workstation Setup (Windows)
 
-An Ansible role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView.
+An Ansible role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView as well as all Eric Zimmerman tools.
 
 ## Requirements
 
@@ -24,6 +24,28 @@ All variables are optional unless noted otherwise:
 
 No other roles are required. However, Chocolatey must be accessible for installing packages.
 
+## Tags
+
+You can use tags to execute only specific parts of the role:
+
+| Tag | Description |
+|-----|-------------|
+| `install-autopsy` | Installs Autopsy and creates its shortcut |
+| `install-vscode` | Installs VSCode and its extensions |
+| `install-wireshark` | Installs Wireshark and creates its shortcut |
+| `install-volatility` | Installs Volatility3 and creates its shortcut |
+| `install-zimmermantools` | Install all Eric Zimmerman tools and copies them to the designated folder (based on the artifcat they are analysing) |
+| `install-ftk` | Install FTK Imager and creates its shortcut|
+| `install-browserhistoryview` | Install BrowserHistoryView and creates its shortcut |
+| `install-pestudio` | Install PeStudio and creates its shortcut | 
+| `install-procmon` | Install ProcMon and creates its shortcut |
+| `install-utilities` | Install some utilities (Libre Office, MobaXTerm, Notepad++, 7Zip) |
+
+To run only a specific section, use the `--tags` option with `ansible-playbook`. For example:
+
+```bash
+ansible-playbook -i hosts playbook.yml --tags install-autopsy
+```
 ## Example Playbook
 
 ```yaml
@@ -34,4 +56,5 @@ No other roles are required. However, Chocolatey must be accessible for installi
         tools_desktop_folder: "C:\\Users\\Public\\Desktop\\Forensic Tools"
         install_autopsy_version: "4.22.1"
         install_vscode_version: "1.103.0"
-
+```
+**NB:** Please note that all shortcuts are available in `tools_desktop_folder` location.
