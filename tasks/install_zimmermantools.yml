@@ -1,0 +1,101 @@
+- name: Install Eric Zimmerman's tools
+  chocolatey.chocolatey.win_chocolatey:
+    name: ericzimmermantools
+    state: present
+  tags: install-zimmermantools
+
+- name: Create Eric Zimmerman Tools category folders
+  ansible.windows.win_file:
+    path: "{{ tools_desktop_folder }}\\EricZimmermanTools\\{{ item }}"
+    state: directory
+  loop:
+    - Registry
+    - Filesystem
+    - Links
+    - Execution
+    - EventLogs
+    - Misc
+  tags: install-zimmermantools
+
+# --- Registry Tools ---
+- name: Copy Registry Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\Registry\\{{ item }}"
+    remote_src: true
+  loop:
+    - RegistryExplorer.exe
+    - RECmd.exe
+    - AppCompatCacheParser.exe
+    - AmcacheParser.exe
+    - SBECmd.exe
+    - RecentFileCacheParser.exe
+    - ShellBagsExplorer.exe
+  tags: install-zimmermantools
+
+# --- Filesystem Tools ---
+- name: Copy Filesystem Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\Filesystem\\{{ item }}"
+    remote_src: true
+  loop:
+    - MFTECmd.exe
+    - RLA.exe
+    - MFTExplorer.exe
+    - XWFIM.exe
+  tags: install-zimmermantools
+
+# --- Link & Jumplist Tools ---
+- name: Copy Link Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\Links\\{{ item }}"
+    remote_src: true
+  loop:
+    - LECmd.exe
+    - JLECmd.exe
+    - JumpListExplorer.exe
+  tags: install-zimmermantools
+
+# --- Execution Trace Tools ---
+- name: Copy Execution Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\Execution\\{{ item }}"
+    remote_src: true
+  loop:
+    - PECmd.exe
+    - SrumECmd.exe
+    - SumECmd.exe
+    - TimeApp.exe
+  tags: install-zimmermantools
+
+# --- Event Log Tools ---
+- name: Copy Event Log Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\EventLogs\\{{ item }}"
+    remote_src: true
+  loop:
+    - EvtxECmd.exe
+    - WxTCmd.exe
+    - TimelineExplorer.exe
+  tags: install-zimmermantools
+
+# --- Miscellaneous Tools ---
+- name: Copy Miscellaneous Tools
+  ansible.windows.win_copy:
+    src: "C:\\ProgramData\\chocolatey\\bin\\{{ item }}"
+    dest: "{{ tools_desktop_folder }}\\EricZimmermanTools\\Misc\\{{ item }}"
+    remote_src: true
+  loop:
+    - RBCmd.exe
+    - SQLECmd.exe
+    - bstrings.exe
+    - VSCMount.exe
+    - EZViewer.exe
+    - Hasher.exe
+    - iisGeolocate.exe
+    - SDBExplorer.exe
+  tags: install-zimmermantools

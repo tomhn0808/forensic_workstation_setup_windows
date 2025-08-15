@@ -4,3 +4,4 @@
   ansible.windows.win_file:
     path: "C:\\Temp\\FTK_Imager.exe"
     state: absent
+    

@@ -32,3 +32,6 @@
   ansible.builtin.import_tasks: install_pestudio.yml
 - name: Installation of BrowserHistoryView
   ansible.builtin.import_tasks: install_browserhistoryview.yml
+- name: Installation of Eric Zimmerman's tools
+  ansible.builtin.import_tasks: install_zimmermantools.yml
+
