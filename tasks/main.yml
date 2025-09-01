@@ -34,4 +34,5 @@
   ansible.builtin.import_tasks: install_browserhistoryview.yml
 - name: Installation of Eric Zimmerman's tools
   ansible.builtin.import_tasks: install_zimmermantools.yml
-
+- name: Installation of KAPE
+  ansible.builtin.import_tasks: install_kape.yml

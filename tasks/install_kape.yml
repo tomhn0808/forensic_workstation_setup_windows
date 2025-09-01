@@ -1,0 +1,35 @@
+- name: Download KAPE.zip
+  ansible.windows.win_get_url:
+    url: "http://kape.zip"
+    dest: "C:\\Temp\\KAPE.zip"
+    validate_certs: false
+  tags: install-kape
+
+- name: Extract KAPE
+  community.windows.win_unzip:
+    src: "C:\\Temp\\KAPE.zip"
+    dest: "{{ tools_desktop_folder }}"
+    delete_archive: true
+  tags: install-kape
+
+- name: Run Get-KAPEUpdate.ps1 if present
+  ansible.windows.win_shell: |
+    Set-Location '{{ tools_desktop_folder }}\KAPE'
+    if (Test-Path ".\Get-KAPEUpdate.ps1") {
+      .\Get-KAPEUpdate.ps1 -Verbose
+    } else {
+      Write-Host "Get-KAPEUpdate.ps1 not found in {{ tools_desktop_folder }}\KAPE "
+    }
+  register: kape_ver
+  args:
+    executable: powershell.exe
+  tags:
+    - install-kape
+    - verify-kape
+
+- name: Show KAPE version
+  ansible.builtin.debug:
+    msg: "KAPE Update Verification Output: {{ kape_ver.stdout | default('unknown') }}"
+  tags:
+    - install-kape
+    - verify-kape

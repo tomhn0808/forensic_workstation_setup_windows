@@ -1,6 +1,6 @@
 # Ansible Role For Forensic Workstation Setup (Windows)
 
-An Ansible role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView as well as all Eric Zimmerman tools.
+An Ansible role to install and configure essential forensic tools on Windows workstations, including Autopsy, Wireshark, VSCode (with extensions), FTK Imager, Volatility3, Procmon, PEStudio, and BrowserHistoryView as well as all Eric Zimmerman tools (including KAPE).
 
 ## Requirements
 
@@ -22,7 +22,7 @@ All variables are optional unless noted otherwise:
 
 ## Dependencies
 
-No other roles are required. However, Chocolatey must be accessible for installing packages.
+No other roles are required. However, Chocolatey must be accessible for installing packages. KAPE (Kroll Artifact Parser and Extractor) must be downloadable from http://kape.zip.
 
 ## Tags
 
@@ -40,6 +40,9 @@ You can use tags to execute only specific parts of the role:
 | `install-pestudio` | Install PeStudio and creates its shortcut | 
 | `install-procmon` | Install ProcMon and creates its shortcut |
 | `install-utilities` | Install some utilities (Libre Office, MobaXTerm, Notepad++, 7Zip) |
+| `install-kape` | Install KAPE (Kroll Artifact Parser and Extractor) from `http://kape.zip` and verify the installation by running the included `Get-KAPEUpdate.ps1` script.|
+| `verify-kape` | Run the `Get-KAPEUpdate.ps1` script to check and verify KAPE’s current version.|
+
 
 To run only a specific section, use the `--tags` option with `ansible-playbook`. For example:
 
